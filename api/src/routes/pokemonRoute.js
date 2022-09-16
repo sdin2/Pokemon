@@ -31,6 +31,9 @@ router.post("/", async (req, res, next) => {
         where:{
             name:body.name,
             id:body.id,
+            height:body.height,
+            weight: body.weight,
+            elemType: body.elemType,
             description:body.description,
             image: body.image
         }
@@ -50,6 +53,9 @@ router.put("/:id", async (req, res, next) => {
             name: body.name,
             image: body.image,
             id:body.id,
+            height:body.height,
+            weight: body.weight,
+            elemType: body.elemType,
             description:body.description
         })
     } catch (error) {
