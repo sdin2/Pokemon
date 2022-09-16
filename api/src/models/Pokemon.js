@@ -14,6 +14,15 @@ module.exports = (sequelize) => {
       primaryKey: true,
       unique: true,
     },
+    height: {
+      type: DataTypes.INTEGER
+    },
+    weight: {
+      type: DataTypes.INTEGER
+    },
+    ElementalType: {
+      type: DataTypes.STRING
+    },
     description: {
       type: DataTypes.TEXT,
     },
