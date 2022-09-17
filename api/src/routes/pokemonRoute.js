@@ -26,14 +26,16 @@ router.get("/", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
     let body=req.body
+    console.log(body)
+    console.log(body.elemTypes, "1123123123")
     try {
       await Pokemon.findOrCreate({
         where:{
             name:body.name,
-            id:body.id,
-            height:body.height,
-            weight: body.weight,
-            elemType: body.elemType,
+            id:Number(body.id),
+            height:Number(body.height),
+            weight:Number( body.weight),
+            elemTypes: body.elemTypes,
             description:body.description,
             image: body.image
         }
@@ -52,10 +54,10 @@ router.put("/:id", async (req, res, next) => {
         pokemon.update({
             name: body.name,
             image: body.image,
-            id:body.id,
-            height:body.height,
-            weight: body.weight,
-            elemType: body.elemType,
+            id:Number(body.id),
+            height:Number(body.height),
+            weight: Number(body.weight),
+            elemTypes: body.elemTypes,
             description:body.description
         })
     } catch (error) {

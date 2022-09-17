@@ -42,7 +42,7 @@ const myPokemon = useSelector((state)=> state.detail)
             <div>
             <h2 >Tipo: </h2>
                 
-                <p>{myPokemon.elemType} </p>
+                <p>{myPokemon.elemTypes} </p>
             </div>
             <div>
             <h2 >Descripción: </h2>

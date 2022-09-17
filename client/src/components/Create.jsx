@@ -29,13 +29,19 @@ function handleOnChange(e){
     })
 }
 
+function handleOnCheck (e) {
+    e.target.checked ? setInput({
+    ...input,
+    elemTypes: [...input.elemTypes, e.target.value]
+    
+}) : 
+setInput ({
+    ...input,
+    elemTypes: input.elemTypes.filter((b) => b !== e.target.value)
+})}
+
 function handleSubmit(e) {
     e.preventDefault();
-    if(input.name === "" || input.weight === "" || input.height ==="" || input.description ===""|| input.elemTypes.length < 1 || input.id === "" || input.image === "")
-    button.disabled = true
-    // {alert("Datos incorrectos o faltantes")}
-    else {
-        button.disabled = false
     dispatch(createPokemon(input))
     alert ("Se a creado el pokemon")
     setInput({
@@ -46,7 +52,7 @@ function handleSubmit(e) {
         elemTypes: [],
         image: "",
         id: ""
-    })}}
+    })}
 
 
 
@@ -63,7 +69,7 @@ return(
         {elemTypes?.map((e, index) => {
             return (
                 <label key = {index}> {e}
-                    <input value = {e} name = {e} type="checkbox" onChange={e=>handleOnChange(e)}/>
+                    <input value = {e} name = {e} type="checkbox" onChange={e=>handleOnCheck(e)}/>
                 </label>
             )
             })}
