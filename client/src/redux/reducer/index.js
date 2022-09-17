@@ -16,6 +16,13 @@ const inicialState = {
                 ...state,
                 detail: action.payload[0]
                 }
+            case "POST_POKEMON":
+                return{
+                ...state,
+                allPokemons: action.payload,
+                pokemons: action.payload
+                }
+            
                 default: 
                 return state;
         }
