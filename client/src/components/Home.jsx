@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { getAllPokemons } from "../redux/actions";
 import Paginado from "../components/Paginado";
 import Card from "../components/Card"
+import Create from "../components/Create"
 
 export default function Home() {
     const dispatch = useDispatch();
@@ -27,13 +28,14 @@ export default function Home() {
         <div>
             <h1> La Gran Pokedex</h1>
             <div> 
+
                 {
                     open === 1?
-                    <div><button onClick = {e => setOpen(2)}> Caca</button>
-                    <input type="text" />
+                    <div>
+                        <Create/>
+                        <button onClick = {e => setOpen("z")}> Cancel</button>
                     </div>
-                    : open === 2?
-                    <div> Hola </div> :
+                    : 
 
                 
                     <button onClick = {e => setOpen(1)}> Crear </button>
