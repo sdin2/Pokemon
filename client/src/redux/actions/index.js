@@ -24,9 +24,10 @@ export function getDetail(id){
     }
 }
 
-export function createPokemon(pokemon) {
+export function createPokemon(input) {
+    console.log(input)
     return async function (dispatch) {
-    await axios.post (URL_POKEMON , pokemon)
+    await axios.post (URL_POKEMON , input)
     const json = await axios.get (URL_POKEMON)
     return dispatch({
         type: "POST_POKEMON",

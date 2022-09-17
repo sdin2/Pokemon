@@ -7,27 +7,32 @@ module.exports = (sequelize) => {
     name: {
       type: DataTypes.STRING,
       unique: true,
+      defaultValue: ""
     },
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       allowNull: false,
       primaryKey: true,
-      unique: true,
+    },
+    pokedexId: {
+      type: DataTypes.INTEGER,
     },
     height: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      defaultValue: 0
     },
     weight: {
-      type: DataTypes.INTEGER
-    },
-    ElementalType: {
-      type: DataTypes.STRING
+      type: DataTypes.INTEGER,
+      defaultValue: 0
     },
     description: {
       type: DataTypes.TEXT,
+      defaultValue: ""
     },
     image: {
       type: DataTypes.TEXT,
+      defaultValue: ""
     },
   });
 };
