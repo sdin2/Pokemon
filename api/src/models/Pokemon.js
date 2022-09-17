@@ -10,10 +10,13 @@ module.exports = (sequelize) => {
       defaultValue: ""
     },
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       allowNull: false,
       primaryKey: true,
-      unique: true,
+    },
+    pokedexId: {
+      type: DataTypes.INTEGER,
     },
     height: {
       type: DataTypes.INTEGER,
@@ -22,10 +25,6 @@ module.exports = (sequelize) => {
     weight: {
       type: DataTypes.INTEGER,
       defaultValue: 0
-    },
-    elemTypes: {
-      type: DataTypes.JSON,
-      defaultValue: [],
     },
     description: {
       type: DataTypes.TEXT,

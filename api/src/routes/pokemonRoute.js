@@ -2,7 +2,7 @@ const { Router } = require("express"); // uso el middleware express para poder u
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 const router = Router();
-const { Pokemon } = require("../db.js");
+const { Pokemon, Types } = require("../db.js");
 
 
 router.get("/", async (req, res, next) => {
@@ -10,12 +10,26 @@ router.get("/", async (req, res, next) => {
     try {
      if (name){
         let pokemon= await Pokemon.findOne({
+          
             where: {name : name}
-        })
+
+        },
+        {include: [
+          {
+            model: Types,
+            attributes: ["id", "name"],
+          }]}
+        )
         res.send(pokemon)
      }
      else {
-        let pokemon = await Pokemon.findAll()
+        let pokemon = await Pokemon.findAll( 
+          {include: [
+            {
+              model: Types,
+              attributes: ["id", "name"],
+            }]}
+        )
         res.send(pokemon)
       }
     } catch (error) {
@@ -26,20 +40,38 @@ router.get("/", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
     let body=req.body
-    console.log(body)
-    console.log(body.elemTypes, "1123123123")
     try {
       await Pokemon.findOrCreate({
         where:{
             name:body.name,
-            id:Number(body.id),
+            pokedexId:Number(body.id),
             height:Number(body.height),
             weight:Number( body.weight),
-            elemTypes: body.elemTypes,
             description:body.description,
             image: body.image
         }
       })
+      let pokemonAddtypes = await Pokemon.findOne({
+        where: {
+          name: body.name
+        }
+      })
+      let type1 = await Types.findOne({
+        where: {
+          name:body.elemType[0]
+        }
+      })
+      if( body.elemTypes.length > 0) {
+      let type2 = await Types.findOne({
+        where: {
+          name:body.elemType[1]
+        }
+      })
+    await pokemonAddtypes.addTypes(type2)
+  }
+  await pokemonAddtypes.addTypes(type1)
+
+      
     } catch (error) {
       console.log(error);
     }
@@ -57,7 +89,6 @@ router.put("/:id", async (req, res, next) => {
             id:Number(body.id),
             height:Number(body.height),
             weight: Number(body.weight),
-            elemTypes: body.elemTypes,
             description:body.description
         })
     } catch (error) {
