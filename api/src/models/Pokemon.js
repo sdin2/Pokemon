@@ -7,6 +7,7 @@ module.exports = (sequelize) => {
     name: {
       type: DataTypes.STRING,
       unique: true,
+      defaultValue: ""
     },
     id: {
       type: DataTypes.INTEGER,
@@ -15,19 +16,24 @@ module.exports = (sequelize) => {
       unique: true,
     },
     height: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      defaultValue: 0
     },
     weight: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      defaultValue: 0
     },
-    ElementalType: {
-      type: DataTypes.STRING
+    elemTypes: {
+      type: DataTypes.JSON,
+      defaultValue: [],
     },
     description: {
       type: DataTypes.TEXT,
+      defaultValue: ""
     },
     image: {
       type: DataTypes.TEXT,
+      defaultValue: ""
     },
   });
 };
