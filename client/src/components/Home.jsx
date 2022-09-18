@@ -1,62 +1,55 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector} from "react-redux"
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux"
 import { getAllPokemons } from "../redux/actions";
 import Paginado from "../components/Paginado";
 import Card from "../components/Card"
 import Create from "../components/Create"
 
+
 export default function Home() {
     const dispatch = useDispatch();
-    const allPokemons = useSelector((state) => state.pokemons);
-    const [currentPage, setCurrentPage] = useState (1);
-    const [pokemonPerPage, setPokemonPerPage] = useState (8);
-    const [open, setOpen] = useState("z");
-    const indexOfLastPokemon = currentPage * pokemonPerPage;
-    const indexOfFirstPokemon =  indexOfLastPokemon - pokemonPerPage;
-    const currentPokemons = allPokemons?.length ? allPokemons?.slice (indexOfFirstPokemon, indexOfLastPokemon) : [];
-    console.log(allPokemons)
-    const paginado = (pageNumber) => {setCurrentPage(pageNumber)};
-
     useEffect(() => {
-        dispatch(getAllPokemons())},
+        dispatch(getAllPokemons())
+    },
         [dispatch]);
 
 
+    const allPokemons = useSelector((state) => state.pokemons);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pokemonPerPage] = useState(8);
+    const [open, setOpen] = useState("z");
+    const indexOfLastPokemon = currentPage * pokemonPerPage;
+    const indexOfFirstPokemon = indexOfLastPokemon - pokemonPerPage;
+    const currentPokemons = allPokemons?.length ? allPokemons?.slice(indexOfFirstPokemon, indexOfLastPokemon) : [];
+    const paginado = (pageNumber) => { setCurrentPage(pageNumber) }
+
 
     return (
-        <div>
-            <h1> La Gran Pokedex</h1>
-            <div> 
+        <div class="bg-gray-500 h-full">
+            <div>
+                <p> La Gran Pokedex</p>
 
                 {
-                    open === 1?
-                    <div>
-                        <Create/>
-                        <button onClick = {e => setOpen("z")}> Cancel</button>
-                    </div>
-                    : 
+                    open === 1 ?
+                        <div class=" bg-gray-500 rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
 
-                
-                    <button onClick = {e => setOpen(1)}> Crear </button>
-                
+                            <Create setOpen={setOpen} />
+
+                        </div>
+                        :
+                        <button class=" block bg-blue-700 hover:bg-teal-600 text-white uppercase text-lg mx-auto p-4 rounded" onClick={e => setOpen(1)}> Crear </button>
                 }
             </div>
-            <Paginado allPokemons = {allPokemons} pokemonPerPage = {pokemonPerPage} paginado = {paginado} className ="paginado"/>
-            <div className="Card">
-         {typeof currentPokemons === "object" ? currentPokemons?.map((e) => {
-          return(
-            <div className="Card" key={e.id}>
-                {
-              <Link to ={`/home/${e.id}`}>
-                  <Card name = {e.name} id = {e.id} description = {e.description} image = {e.image} key ={e.id}/>
-              </Link>                  
-                }
-            </div>      
-          )
-        }): "No se encontraron pokemons"}
-         </div>
+            <Paginado thingPerPage={pokemonPerPage} array={allPokemons} paginate={paginado} currentPage={currentPage} className="paginado" />
+            <div className="flex flex-wrap ">
+                {typeof currentPokemons === "object" ? currentPokemons?.map((e) => {
+                    return (
+                        <Card key={e.id} poke={e} />
+                    )
+                }) : "No se encontraron pokemons"}
+            </div>
+            <Paginado thingPerPage={pokemonPerPage} array={allPokemons} paginate={paginado} currentPage={currentPage} className="paginado" />
         </div>
     )
 }

@@ -17,6 +17,7 @@ module.exports = (sequelize) => {
     },
     pokedexId: {
       type: DataTypes.INTEGER,
+      unique: true,
     },
     height: {
       type: DataTypes.INTEGER,

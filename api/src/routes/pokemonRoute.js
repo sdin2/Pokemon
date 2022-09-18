@@ -14,21 +14,24 @@ router.get("/", async (req, res, next) => {
             where: {name : name}
 
         },
-        {include: [
+        {include: 
           {
             model: Types,
             attributes: ["id", "name"],
-          }]}
+          }}
         )
         res.send(pokemon)
      }
      else {
         let pokemon = await Pokemon.findAll( 
-          {include: [
-            {
-              model: Types,
-              attributes: ["id", "name"],
-            }]}
+          {
+            include:
+              {
+                model: Types,
+                attributes: ["id", "name"],
+              }
+            ,
+          }
         )
         res.send(pokemon)
       }
@@ -40,8 +43,12 @@ router.get("/", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
     let body=req.body
+    console.log(body)
     try {
-      await Pokemon.findOrCreate({
+      if(body.name===""||body.id===""||body.elemTypes.length===0){
+        res.send("no se completaron todos los campos")
+      }
+     else{ await Pokemon.findOrCreate({
         where:{
             name:body.name,
             pokedexId:Number(body.id),
@@ -51,27 +58,28 @@ router.post("/", async (req, res, next) => {
             image: body.image
         }
       })
-      let pokemonAddtypes = await Pokemon.findOne({
+      let pokemonAddTypes = await Pokemon.findOne({
         where: {
           name: body.name
         }
       })
       let type1 = await Types.findOne({
         where: {
-          name:body.elemType[0]
+          name:body.elemTypes[0]
         }
       })
-      if( body.elemTypes.length > 0) {
+      console.log(type1)
+      await pokemonAddTypes.addTypes(type1)
+      if( body.elemTypes.length > 1) {
       let type2 = await Types.findOne({
         where: {
-          name:body.elemType[1]
+          name:body.elemTypes[1]
         }
       })
-    await pokemonAddtypes.addTypes(type2)
+    await pokemonAddTypes.addTypes(type2)
   }
-  await pokemonAddtypes.addTypes(type1)
 
-      
+      res.send("all good")}
     } catch (error) {
       console.log(error);
     }
@@ -86,11 +94,12 @@ router.put("/:id", async (req, res, next) => {
         pokemon.update({
             name: body.name,
             image: body.image,
-            id:Number(body.id),
+            pokedexId:Number(body.id),
             height:Number(body.height),
             weight: Number(body.weight),
             description:body.description
         })
+        res.send("all good")
     } catch (error) {
       console.log(error);
     }
