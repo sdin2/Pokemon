@@ -45,7 +45,7 @@ export default function Home() {
             <div className="flex flex-wrap ">
                 {typeof currentPokemons === "object" ? currentPokemons?.map((e) => {
                     return (
-                        <Card key={e.id} poke={e} />
+                        <Card key={e.id} poke={e} types={e.types} />
                     )
                 }) : "No se encontraron pokemons"}
             </div>

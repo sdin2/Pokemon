@@ -116,6 +116,10 @@ export default function Create({ setOpen }) {
                     <input class="border rounded-xl py-2 px-3 text-grey-800" value={input.image} name="image" type="text" onChange={e => handleOnChange(e)} />
                     <img src={input.image} alt="" />
                 </div>
+                <div class="flex flex-col">
+                    <label class=" font-bold text-lg text-gray-900">Description:</label>
+                    <textarea class="border rounded-xl py-2 px-3 text-grey-800" value={input.description} name="description" type="text" onChange={e => handleOnChange(e)} />
+                </div>
                 {types?.map((e, index) => {
                     return (
                         <div class="flex flex-wrap w-max font-bold text-lg text-gray-900">
