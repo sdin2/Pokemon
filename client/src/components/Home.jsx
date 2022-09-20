@@ -27,21 +27,23 @@ export default function Home() {
 
     return (
         <div class="bg-gray-500 h-full">
-            <div>
-                <p> La Gran Pokedex</p>
+            <div class="bg-gray-500 h-full">
+                <p class="pt-10 text-3xl font-bold italic"> La Gran Pokedex</p>
 
                 {
                     open === 1 ?
-                        <div class="flex flex-col justify-center items-center bg-gray-500 rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                        <div class="pt-10 flex flex-col justify-center items-center bg-gray-500 rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
 
                             <Create setOpen={setOpen} />
 
                         </div>
                         :
-                        <button class=" block bg-blue-700 hover:bg-teal-600 text-white uppercase text-lg mx-auto p-4 rounded" onClick={e => setOpen(1)}> Crear </button>
+                        <button class="mt-8 block bg-blue-700 hover:bg-teal-600 text-white uppercase text-lg mx-auto p-4 rounded" onClick={e => setOpen(1)}> Crear </button>
                 }
             </div>
-            <Paginado thingPerPage={pokemonPerPage} array={allPokemons} paginate={paginado} currentPage={currentPage} className="paginado" />
+            <div class="pt-10">
+                <Paginado thingPerPage={pokemonPerPage} array={allPokemons} paginate={paginado} currentPage={currentPage} className="paginado" />
+            </div>
             <div className="flex flex-wrap ">
                 {typeof currentPokemons === "object" ? currentPokemons?.map((e) => {
                     return (
@@ -49,7 +51,9 @@ export default function Home() {
                     )
                 }) : "No se encontraron pokemons"}
             </div>
-            <Paginado thingPerPage={pokemonPerPage} array={allPokemons} paginate={paginado} currentPage={currentPage} className="paginado" />
+            <div class="pt-10">
+                <Paginado thingPerPage={pokemonPerPage} array={allPokemons} paginate={paginado} currentPage={currentPage} className="paginado" />
+            </div>
         </div>
     )
 }
