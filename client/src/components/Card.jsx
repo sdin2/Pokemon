@@ -24,7 +24,7 @@ export default function Card({ poke }) {
         c.preventDefault()
         Swal.fire({
             title: `
-            <div className="text-2xl font-bold">
+            <div class="text-2xl font-bold">
             ${poke.name.toUpperCase()} 
             </div>
             <image width="500px" src=${poke.image} />
@@ -49,7 +49,7 @@ export default function Card({ poke }) {
             <div class="flex flex-row justify-center items-center text-xl font-bold">
             <div class="mr-4">${poke.types[0].name.toUpperCase()} </div>
             </div>
-            <div className="flex flex-row justify-center items-center ">
+            <div class="flex flex-row justify-center items-center ">
             <image width="100px" src=${poke.types[0].image} />
             </div>
             `,

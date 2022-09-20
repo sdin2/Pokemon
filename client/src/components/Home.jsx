@@ -17,7 +17,7 @@ export default function Home() {
 
     const allPokemons = useSelector((state) => state.pokemons);
     const [currentPage, setCurrentPage] = useState(1);
-    const [pokemonPerPage] = useState(8);
+    const [pokemonPerPage] = useState(9);
     const [open, setOpen] = useState("z");
     const indexOfLastPokemon = currentPage * pokemonPerPage;
     const indexOfFirstPokemon = indexOfLastPokemon - pokemonPerPage;
@@ -44,7 +44,7 @@ export default function Home() {
             <div className="pt-10">
                 <Paginado thingPerPage={pokemonPerPage} array={allPokemons} paginate={paginado} currentPage={currentPage} className="paginado" />
             </div>
-            <div className="flex flex-wrap ">
+            <div className="flex flex-wrap justify-center items-center">
                 {typeof currentPokemons === "object" ? currentPokemons?.map((e) => {
                     return (
                         <Card key={e.id} poke={e} types={e.types} />
