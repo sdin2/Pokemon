@@ -14,4 +14,9 @@ module.exports = (sequelize) => {
         defaultValue: DataTypes.UUIDV4,
         allowNull: false,
         primaryKey: true,
-      },})}
+      },
+      image: {
+        type: DataTypes.TEXT,
+        defaultValue: ""
+      },
+    })}

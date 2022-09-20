@@ -17,7 +17,7 @@ router.get("/", async (req, res, next) => {
         {include: 
           {
             model: Types,
-            attributes: ["id", "name"],
+            attributes: ["id", "name", "image"],
           }}
         )
         res.send(pokemon)
@@ -28,7 +28,7 @@ router.get("/", async (req, res, next) => {
             include:
               {
                 model: Types,
-                attributes: ["id", "name"],
+                attributes: ["id", "name", "image"],
               }
             ,
           }
