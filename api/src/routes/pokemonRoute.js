@@ -43,10 +43,13 @@ router.get("/", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
     let body=req.body
-    console.log(body)
+   
     try {
-      if(body.name===""||body.id===""||body.elemTypes.length===0){
-        res.send("no se completaron todos los campos")
+      let pokemonInDb= await Pokemon.findAll()
+      let pokemonInDbFilterByPkdexId=pokemonInDb.filter(e=>e.pokedexId==body.id)
+      let pokemonInDbFilterByName=pokemonInDb.filter(e=>e.name==body.name)
+      if(body.name===""||body.id===""||body.elemTypes.length===0||pokemonInDbFilterByPkdexId.length>0 || pokemonInDbFilterByName>0 ){
+        res.send("no se completaron todos los campos o el nombre o la pokedex id ya existen")
       }
      else{ await Pokemon.findOrCreate({
         where:{
@@ -90,16 +93,24 @@ router.put("/:id", async (req, res, next) => {
     let id= req.params.id
     let body= req.body
     try {
-      let pokemon = await Pokemon.findByPk(id)
-        pokemon.update({
-            name: body.name,
-            image: body.image,
-            pokedexId:Number(body.id),
-            height:Number(body.height),
-            weight: Number(body.weight),
-            description:body.description
-        })
-        res.send("all good")
+      let pokemonInDb= await Pokemon.findAll()
+      let pokemonInDbFilterByPkdexId=pokemonInDb.filter(e=>e.pokedexId==body.id)
+      let pokemonInDbFilterByName=pokemonInDb.filter(e=>e.name==body.name)
+      if(pokemonInDbFilterByPkdexId.length===0 || pokemonInDbFilterByName===0){
+        let pokemon = await Pokemon.findByPk(id)
+          pokemon.update({
+              name: body.name,
+              image: body.image,
+              pokedexId:Number(body.id),
+              height:Number(body.height),
+              weight: Number(body.weight),
+              description:body.description
+          })
+          res.send("all good")
+      }
+      else{
+        res.send("name or pokedex number already exist")
+      }
     } catch (error) {
       console.log(error);
     }
