@@ -96,7 +96,7 @@ router.put("/:id", async (req, res, next) => {
       let pokemonInDb= await Pokemon.findAll()
       let pokemonInDbFilterByPkdexId=pokemonInDb.filter(e=>e.pokedexId==body.id)
       let pokemonInDbFilterByName=pokemonInDb.filter(e=>e.name==body.name)
-      if(pokemonInDbFilterByPkdexId.length===0 || pokemonInDbFilterByName===0){
+      if(pokemonInDbFilterByPkdexId.length===0 || pokemonInDbFilterByName.length===0){
         let pokemon = await Pokemon.findByPk(id)
           pokemon.update({
               name: body.name,
