@@ -23,13 +23,11 @@ export default function Card({ poke }) {
     function handleOnClick(c) {
         c.preventDefault()
         Swal.fire({
-            title: `
-            <div class="flex flex-col justify-center items-center"><div class="text-2xl font-bold">
-            ${poke.name.toUpperCase()} </div>
-            <image width="500px" src=${poke.image} />
+            title: `<div class="flex flex-col justify-center items-center"><div class="text-2xl font-bold">${poke.name.toUpperCase()}</div><image width="500px" src=${poke.image} />
             <div class="flex flex-col justify-center items-center text-xl"><div class="flex flex-row justify-center items-center text-xl">Number: <div class="italic font-bold">${poke.pokedexId}</div></div>
             <div class="flex flex-col justify-center items-center text-xl">Description:
-            <div class="italic font-bold" > ${poke.description}</div></div><div class="flex flex-row justify-center items-center text-xl"> Weigth: <div class="italic font-bold">${poke.weight}</div> - Heigth: <div class="italic font-bold">${poke.height}</div></div></div>`,
+            <div class="italic font-bold" > ${poke.description}</div></div>
+            <div class="flex flex-row justify-center items-center text-xl"> Weigth: <div class="italic font-bold">${poke.weight}</div> - Heigth: <div class="italic font-bold">${poke.height}</div></div></div>`,
             html: poke.types.length > 1 ? `
             <div class="flex flex-row justify-center items-center text-xl font-bold"><div class="mr-4">${poke.types[0].name.toUpperCase()} </div><div>${poke.types[1].name.toUpperCase()} </div></div><div class="flex flex-row justify-center items-center text-xl"><image width="100px" src=${poke.types[0].image}  /><image width="100px" src=${poke.types[1].image} /></div>` : `<div class="flex flex-row justify-center items-center text-xl font-bold"><div class="mr-4">${poke.types[0].name.toUpperCase()} </div></div><div class="flex flex-row justify-center items-center "><image width="100px" src=${poke.types[0].image} /></div></div>
             `,
