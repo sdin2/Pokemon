@@ -92,8 +92,8 @@ export default function Create({ setOpen }) {
         //     </form>
         // </div>
 
-        <div class=" bg-gray-500 rounded shadow-2xl p-8 m-4 w-1/4  ">
-            <h1 class=" block w-full text-center text-gray-800 text-2xl font-bold">Create pokemon</h1>
+        <div class=" bg-gray-500 rounded shadow-2xl p-8 m-4 w-1/2  ">
+            <h1 class=" flex flex-wrap block w-full text-center text-gray-800 text-2xl font-bold">Create pokemon</h1>
             <form onSubmit={(e) => handleSubmit(e)}>
                 <div class="flex flex-col">
                     <label class=" font-bold text-lg text-gray-900">Name:</label>
@@ -120,16 +120,19 @@ export default function Create({ setOpen }) {
                     <label class=" font-bold text-lg text-gray-900">Description:</label>
                     <textarea class="border rounded-xl py-2 px-3 text-grey-800" value={input.description} name="description" type="text" onChange={e => handleOnChange(e)} />
                 </div>
-                {types?.map((e, index) => {
-                    return (
-                        <div class="flex flex-wrap w-max font-bold text-lg text-gray-900">
-                            <label class="flex flex-wrap container items-center" key={index}>
-                                <input class="flex flex-wrap w-max font-bold text-lg text-gray-900" value={e.name} name={e.name} type="checkbox" onChange={c => handleOnCheck(c, e)} />
-                                {e.name}
-                            </label>
-                        </div>
-                    )
-                })}
+                <div class="grid grid-cols-3 gap-1 flex flex-wrap content-start pb-5 font-bold text-lg text-gray-900">
+                    {types?.map((e, index) => {
+                        return (
+                            <div class="grid justify-items-start">
+                                <label class="flex flex-row mr-5" key={index}>
+                                    <input value={e.name} name={e.name} type="checkbox" onChange={c => handleOnCheck(c, e)} />
+                                    {e.name}
+                                </label>
+
+                            </div>
+                        )
+                    })}
+                </div>
                 <div className="flex flex-row">
                     <button class="block bg-blue-700 hover:bg-teal-600 text-white uppercase text-lg mx-auto p-4 rounded" type="submit">Create</button>
                     <button class="block bg-blue-700 hover:bg-teal-600 text-white uppercase text-lg mx-auto p-4 rounded" onClick={e => setOpen("z")}>Cancel</button>
