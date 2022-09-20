@@ -48,7 +48,6 @@ router.post("/", async (req, res, next) => {
       let pokemonInDb= await Pokemon.findAll()
       let pokemonInDbFilterByPkdexId=pokemonInDb.filter(e=>e.pokedexId==body.id)
       let pokemonInDbFilterByName=pokemonInDb.filter(e=>e.name==body.name)
-      console.log(pokemonInDbFilterByName)
       if(body.name===""||body.id===""||body.elemTypes.length===0||pokemonInDbFilterByPkdexId.length>0 || pokemonInDbFilterByName.length>0 ){
         res.send("no se completaron todos los campos o el nombre o la pokedex id ya existen")
       }
