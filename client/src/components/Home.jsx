@@ -32,7 +32,7 @@ export default function Home() {
 
                 {
                     open === 1 ?
-                        <div class=" bg-gray-500 rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                        <div class="flex flex-col justify-center items-center bg-gray-500 rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
 
                             <Create setOpen={setOpen} />
 

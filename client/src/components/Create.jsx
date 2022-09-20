@@ -93,7 +93,7 @@ export default function Create({ setOpen }) {
         // </div>
 
         <div class=" bg-gray-500 rounded shadow-2xl p-8 m-4 w-1/4  ">
-            <h1 class=" flex flex-wrap block w-full text-center text-gray-800 text-2xl font-bold">Create pokemon</h1>
+            <h1 class=" block w-full text-center text-gray-800 text-2xl font-bold">Create pokemon</h1>
             <form onSubmit={(e) => handleSubmit(e)}>
                 <div class="flex flex-col">
                     <label class=" font-bold text-lg text-gray-900">Name:</label>
