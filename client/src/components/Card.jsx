@@ -23,10 +23,7 @@ export default function Card({ poke }) {
     function handleOnClick(c) {
         c.preventDefault()
         Swal.fire({
-            title: `
-            <div class="flex flex-col justify-center items-center"><div class="text-2xl font-bold">
-            ${poke.name.toUpperCase()} </div>
-            <image width="500px" src=${poke.image} />
+            title: `<div class="flex flex-col justify-center items-center"><div class="text-2xl font-bold">${poke.name.toUpperCase()}</div><image width="500px" src=${poke.image} />
             <div class="flex flex-col justify-center items-center text-xl"><div class="flex flex-row justify-center items-center text-xl">Number: <div class="italic font-bold">${poke.pokedexId}</div></div>
             <div class="flex flex-col justify-center items-center text-xl">Description:
             <div class="italic font-bold" > ${poke.description}</div></div>
