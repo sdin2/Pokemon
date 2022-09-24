@@ -2,20 +2,20 @@ const { Router } = require("express"); // uso el middleware express para poder u
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 const router = Router();
-const { Types } = require("../db.js");
+const { Type } = require("../db.js");
 
 router.get("/", async (req, res, next) => {
     const name= req.query.name? req.query.name : req.body.name
     try {
      if (name){
-        let types= await Types.findOne({
+        let type= await Type.findOne({
             where: {name : name}
         })
-        res.send(types)
+        res.send(type)
      }
      else {
-        let types = await Types.findAll()
-        res.send(types)
+        let type = await Type.findAll()
+        res.send(type)
       }
     } catch (error) {
       console.log(error);

@@ -61,3 +61,45 @@ export function getTypes(){
             })
             }
     }
+    export function filterByType(payload) {
+        console.log(payload)
+        return {
+                type: "FILTER_BY_TYPE",
+                payload
+            }
+    }
+    
+    export function orderByNumber(payload) {
+        return {
+                type: "ORDER_BY_NUMBER",
+                payload
+            }
+    }
+    export function orderByName(payload) {
+        return { 
+            type: "ORDER_BY_NAME",
+            payload
+        }
+    };
+    
+    export function orderByWeight(payload) {
+        return { 
+            type: "ORDER_BY_WEIGHT",
+            payload
+        }
+    };
+
+    export function orderByHeight(payload) {
+        return { 
+            type: "ORDER_BY_HEIGHT",
+            payload
+        }
+    };
+    
+    export function SearchPokemon(payload) {
+        console.log(payload)
+            return({
+                type: "SEARCH_NAME",
+                payload
+            })
+        };

@@ -11,7 +11,7 @@ export default function EditPokemonForm({ poke, setEdit }) {
         height: poke.height,
         description: poke.description,
         id: poke.pokedexId,
-        elemTypes: poke.elemTypes,
+        elemType: poke.elemType,
         image: poke.image,
     });
 
@@ -38,7 +38,7 @@ export default function EditPokemonForm({ poke, setEdit }) {
             weight: "",
             height: "",
             description: "",
-            elemTypes: [],
+            elemType: [],
             image: "",
             id: ""
         })

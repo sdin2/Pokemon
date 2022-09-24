@@ -20,7 +20,7 @@ export default function Create({ setOpen }) {
         height: "",
         description: "",
         id: "",
-        elemTypes: [],
+        elemType: [],
         image: "",
     });
 
@@ -36,12 +36,12 @@ export default function Create({ setOpen }) {
     function handleOnCheck(c, e) {
         c.target.checked ? setInput({
             ...input,
-            elemTypes: [...input.elemTypes, c.target.value]
+            elemType: [...input.elemType, c.target.value]
 
         }) :
             setInput({
                 ...input,
-                elemTypes: input.elemTypes.filter((b) => b !== c.target.value)
+                elemType: input.elemType.filter((b) => b !== c.target.value)
             })
     }
 
@@ -54,7 +54,7 @@ export default function Create({ setOpen }) {
             weight: "",
             height: "",
             description: "",
-            elemTypes: [],
+            elemType: [],
             image: "",
             id: ""
         })

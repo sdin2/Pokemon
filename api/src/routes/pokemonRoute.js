@@ -2,7 +2,7 @@ const { Router } = require("express"); // uso el middleware express para poder u
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 const router = Router();
-const { Pokemon, Types } = require("../db.js");
+const { Pokemon, Type } = require("../db.js");
 
 
 router.get("/", async (req, res, next) => {
@@ -16,7 +16,7 @@ router.get("/", async (req, res, next) => {
         },
         {include: 
           {
-            model: Types,
+            model: Type,
             attributes: ["id", "name", "image"],
           }}
         )
@@ -27,7 +27,7 @@ router.get("/", async (req, res, next) => {
           {
             include:
               {
-                model: Types,
+                model: Type,
                 attributes: ["id", "name", "image"],
               }
             ,
@@ -48,7 +48,7 @@ router.post("/", async (req, res, next) => {
       let pokemonInDb= await Pokemon.findAll()
       let pokemonInDbFilterByPkdexId=pokemonInDb.filter(e=>e.pokedexId==body.id)
       let pokemonInDbFilterByName=pokemonInDb.filter(e=>e.name==body.name)
-      if(body.name===""||body.id===""||body.elemTypes.length===0||pokemonInDbFilterByPkdexId.length>0 || pokemonInDbFilterByName.length>0 ){
+      if(body.name===""||body.id===""||body.elemType.length===0||pokemonInDbFilterByPkdexId.length>0 || pokemonInDbFilterByName.length>0 ){
         res.send("no se completaron todos los campos o el nombre o la pokedex id ya existen")
       }
      else{ await Pokemon.findOrCreate({
@@ -61,25 +61,25 @@ router.post("/", async (req, res, next) => {
             image: body.image
         }
       })
-      let pokemonAddTypes = await Pokemon.findOne({
+      let pokemonAddType = await Pokemon.findOne({
         where: {
           name: body.name
         }
       })
-      let type1 = await Types.findOne({
+      let type1 = await Type.findOne({
         where: {
-          name:body.elemTypes[0]
+          name:body.elemType[0]
         }
       })
       console.log(type1)
-      await pokemonAddTypes.addTypes(type1)
-      if( body.elemTypes.length > 1) {
-      let type2 = await Types.findOne({
+      await pokemonAddType.addType(type1)
+      if( body.elemType.length > 1) {
+      let type2 = await Type.findOne({
         where: {
-          name:body.elemTypes[1]
+          name:body.elemType[1]
         }
       })
-    await pokemonAddTypes.addTypes(type2)
+    await pokemonAddType.addType(type2)
   }
 
       res.send("all good")}
