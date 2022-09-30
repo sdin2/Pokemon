@@ -7,13 +7,17 @@ export default function EditPokemonForm({ poke, setEdit }) {
     const dispatch = useDispatch()
     const [input, setInput] = useState({
         name: poke.name,
+        pastName: poke.name,
         weight: poke.weight,
         height: poke.height,
         description: poke.description,
         id: poke.pokedexId,
-        elemType: poke.elemType,
+        pastId : poke.pokedexId,
+        elemType: [poke.types[0].name, poke.types[1].name],
+        pastElemType: [poke.types[0].name, poke.types[1].name],
         image: poke.image,
     });
+    
 
     useEffect(() => {
         dispatch(getTypes())
@@ -28,21 +32,42 @@ export default function EditPokemonForm({ poke, setEdit }) {
             [e.target.name]: e.target.value
         })
     }
-
+console.log(input.elemType, input.pastElemType)
+//  let checkbox = document.querySelectorAll("input[type='checkbox']")
+    
+     
+    // for (let index = 0; index < checkbox.length; index++) {
+    //      if (checkbox[index].name === input.elemType[0] || checkbox[index].name === input.elemType[1])
+    //      checkbox[index].checked = true
+    //  }
 
     function handleSubmit(e) {
         e.preventDefault();
         dispatch(editPokemon(poke.id, input))
         setInput({
             name: "",
+            pastName: "",
             weight: "",
             height: "",
             description: "",
             elemType: [],
+            pastElemType: [],
             image: "",
-            id: ""
+            id: "",
+            pastId: ""
         })
         setEdit(1)
+    }
+    function handleOnCheck(c, e) {
+        c.target.checked ? setInput({
+            ...input,
+            elemType: [...input.elemType, c.target.value]
+
+        }) :
+            setInput({
+                ...input,
+                elemType: input.elemType.filter((b) => b !== c.target.value)
+            })
     }
 
 
@@ -82,8 +107,21 @@ export default function EditPokemonForm({ poke, setEdit }) {
                     <label className="mb-2 font-bold text-lg text-gray-900">Description:</label>
                     <textarea className="border rounded-xl py-2 px-3 text-grey-800" value={input.description} name="description" type="text" onChange={e => handleOnChange(e)} />
                 </div>
+                <div className="grid grid-cols-3 gap-1 flex flex-wrap content-start pb-5 font-bold text-lg text-gray-900">
+                    {types?.map((e, index) => {
+                        return (
+                            <div className="grid justify-items-start" key={index}>
+                                <label className="flex flex-row mr-5" >
+                                    <input checked = {e.name === input.elemType[0] || e.name === input.elemType[1] ? true : false} value={e.name} name={e.name} type="checkbox" onChange={c => handleOnCheck(c, e)} />
+                                    {e.name}
+                                </label>
+
+                            </div>
+                        )
+                    })}
+                </div>
                 <div className="flex flex-col">
-                    <label className="mb-2 font-bold text-lg text-gray-900" for="password">Image: </label>
+                    <label className="mb-2 font-bold text-lg text-gray-900" >Image: </label>
                     <input className="border rounded-xl py-2 px-3 text-grey-800" value={input.image} name="image" type="text" onChange={e => handleOnChange(e)} />
                     <img src={input.image} alt="" />
                 </div>

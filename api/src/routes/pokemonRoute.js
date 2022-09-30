@@ -47,7 +47,7 @@ router.post("/", async (req, res, next) => {
     try {
       let pokemonInDb= await Pokemon.findAll()
       let pokemonInDbFilterByPkdexId=pokemonInDb.filter(e=>e.pokedexId==body.id)
-      let pokemonInDbFilterByName=pokemonInDb.filter(e=>e.name==body.name)
+      let pokemonInDbFilterByName=pokemonInDb.filter(e=>e.name.toLowerCase()==body.name.toLowerCase())
       if(body.name===""||body.id===""||body.elemType.length===0||pokemonInDbFilterByPkdexId.length>0 || pokemonInDbFilterByName.length>0 ){
         res.send("no se completaron todos los campos o el nombre o la pokedex id ya existen")
       }
@@ -71,7 +71,7 @@ router.post("/", async (req, res, next) => {
           name:body.elemType[0]
         }
       })
-      console.log(type1)
+      
       await pokemonAddType.addType(type1)
       if( body.elemType.length > 1) {
       let type2 = await Type.findOne({
@@ -92,11 +92,39 @@ router.post("/", async (req, res, next) => {
 router.put("/:id", async (req, res, next) => {
     let id= req.params.id
     let body= req.body
+    let pokemonFilterByName = []
+    let pokemonFilterById = []
     try {
-      let pokemonInDb= await Pokemon.findAll()
-      let pokemonInDbFilterByPkdexId=pokemonInDb.filter(e=>e.pokedexId==body.id)
-      let pokemonInDbFilterByName=pokemonInDb.filter(e=>e.name==body.name)
-      if(pokemonInDbFilterByPkdexId.length===0 || pokemonInDbFilterByName.length===0){
+      if(body.name !== body.pastName) {
+        let pokemonInDb= await Pokemon.findAll()
+        pokemonFilterByName=pokemonInDb.filter(e=>e.name.toLowerCase()===body.name.toLowerCase()) 
+               
+      }
+      if( body.id !== body.pastId) {
+        let pokemonInDb= await Pokemon.findAll()
+        pokemonFilterById=pokemonInDb.filter(e=>e.pokedexId == body.id)
+      }
+console.log(body)
+      if( body.elemType[0] !== body.pastElemType[0] || body.elemType[1] !== body.pastElemType[1]) {
+        let pokemon = await Pokemon.findByPk(id)
+        await pokemon.setTypes([])
+        let type1 = await Type.findOne({
+          where: {
+            name:body.elemType[0]
+          }
+        })
+        
+        await pokemon.addType(type1)
+        if( body.elemType.length > 1) {
+        let type2 = await Type.findOne({
+          where: {
+            name:body.elemType[1]
+          }
+        })
+      await pokemon.addType(type2)
+      }}
+
+      if(pokemonFilterByName.length === 0 && pokemonFilterById.length === 0){
         let pokemon = await Pokemon.findByPk(id)
           pokemon.update({
               name: body.name,
@@ -108,8 +136,8 @@ router.put("/:id", async (req, res, next) => {
           })
           res.send("all good")
       }
-      else{
-        res.send("name or pokedex number already exist")
+      else {
+        res.send("Ya existe ese pokemon")
       }
     } catch (error) {
       console.log(error);

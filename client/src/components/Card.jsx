@@ -6,7 +6,7 @@ import { getTypes } from "../redux/actions";
 
 export default function Card({ poke }) {
 
-
+    
 
 
     const dispatch = useDispatch()
